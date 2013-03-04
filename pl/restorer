@@ -1,0 +1,35 @@
+#!/bin/bash
+echo "#######  #######"
+
+infoHelp="Informacja o argumentach dla skryptu restorer.\n
+		Kolejność argumentów jest istotna.\n
+		2 argumenty - wrzucenie do bazy kolekcji nazwa_kolekcji z pliku nazwa_kolekcji.bson (restorer nazwa_bazy nazwa_kolekcji)\n
+		3 argumenty - wrzucenie do bazy kolekcji z konkretnego pliku (restorer nazwa_bazy nazwa_kolekcji nazwa_pliku)"
+
+infoHelp="Restorer - przywracanie kolekcji do lokalnego hosta przy użyciu plików bson. Użycie:\n
+		\bKolejność argumentów jest istotna.\n
+		*2 argumenty - przywrócenie do bazy, kolekcji z pliku o postaci nazwa_kolekcji.bson (np: restorer nazwa_bazy nazwa_kolekcji)\n\n
+		*3 argumenty - przywrócenie do bazy, kolekcji z konkretnego pliku (np: restorer nazwa_bazy nazwa_kolekcji nazwa_pliku)"
+
+if [ "$#" -eq 0 ]
+	then
+	echo "Nie podałeś żadnego argumentu!"
+	echo "Podaj nazwę bazy:"
+	read db
+	echo "Podaj kolekcję do jakiej chcesz wrzucić dane:"
+	read collection
+	echo "Podaj nazwę pliku bson (bez rozszerzenia .bson)"
+	read fileName
+	mongorestore --db $db --collection $collection $fileName.bson
+elif [ "$#" -eq 1 -a "$1" = "help" ]
+	then
+	echo -e $infoHelp
+elif [ "$#" -eq 2 ]
+	then
+	mongorestore --db $1 --collection $2 $2.bson
+elif [ "$#" -eq 3 ]
+	then
+	mongorestore --db $1 --collection $2 $3.bson
+else
+	echo -e $infoHelp
+fi

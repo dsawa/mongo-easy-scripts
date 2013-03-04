@@ -1,0 +1,27 @@
+#!/bin/bash
+
+infoHelp="Importer - wrzuca kolekcję do lokalnego hosta z pliku json. Użycie:\n
+		\bKolejność argumentów może być jest istotna.\n
+		*1 argument - wrzucenie do bazy kolekcji z pliku json o postaci nazwa_kolekcji.json (np: importer nazwa_kolekcji)\n\n
+		*2 argumenty - wrzucenie do bazy kolekcji z konkretnego pliku (np: importer nazwa_kolekcji nazwa_pliku)"
+		
+if [ "$#" -eq 0 ]
+	then
+	echo "Nie podałeś żadnego argumentu!"
+	echo "Podaj kolekcję do jakiej chcesz wrzucić dane:"
+	read collection
+	echo "Podaj nazwę pliku json (bez rozszerzenia .json)"
+	read fileName
+	mongoimport --collection $collection --file $fileName.json
+elif [ "$#" -eq 1 -a "$1" = "help" ]
+	then
+	echo -e $infoHelp
+elif [ "$#" -eq 1 -a "$1" != "help" ]
+	then
+	mongoimport --collection $1 --file $1.json
+elif [ "$#" -eq 2 ]
+	then
+	mongoimport --collection $1 --file $2.json
+else
+	echo -e $infoHelp
+fi

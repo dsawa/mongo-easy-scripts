@@ -1,0 +1,38 @@
+#!/bin/bash
+
+infoHelp="Dumper - zrzucanie bazy/kolekcji. Użycie:\n
+		\bKolejność argumentów jest istotna, każdy kolejny jest opcjonalny.\n
+		*0 argumentów - skrypt będzie pytać o potrzebne informacje by zrzucić kolekcję z bazy.\n\n
+		*1 argument - zrzucenie wszystkiego z danego hosta (np: dumper localhost).\n
+		\tBazy i kolekcje zostaną zapisane w katalogu dumper_result\n\n 
+		*2 argumenty - zrzucenie całej bazy o podanej nazwie (np: dumper localhost nazwa_bazy).\n
+		\tZawartość bazy zostanie zapisana w katalogu o nazwie takiej jak zrzucana baza.\n
+		*3 argumenty - zrzucenie jednej kolekcji o danej nazwie (dumper localhost nazwa_bazy nazwa_kolekcji).\n
+		\tKolekcja zostanie zapisana w katalogu o nazwie takiej jak baza z której pochodzi."
+		
+if [ "$#" -eq 0 ]
+	then
+	echo "Nie podałeś żadnego argumentu!"
+	echo "Podaj host (lub host:port): "
+	read host
+	echo "Podaj nazwę bazy zawierającą kolekcje do zrzucenia:"
+	read db
+	echo "Podaj kolekcję jaką chcesz zrzucić:"
+	read collection
+	mongodump --host $host --db $db --collection $collection --out '.'
+elif [ "$#" -eq 1 -a "$1" = "help" ]
+	then
+	echo -e $infoHelp
+elif [ "$#" -eq 1 -a "$1" != "help" ]
+	then
+	mkdir dumper_result > /dev/null 2>&1
+	mongodump --host $1 --out 'dumper_result/'
+elif [ "$#" -eq 2 ]
+	then
+	mongodump --host $1 --db $2 --out '.'
+elif [ "$#" -eq 3 ]
+	then
+	mongodump --host $1 --db $2 --collection $3 --out '.'
+else
+	echo -e $infoHelp
+fi
