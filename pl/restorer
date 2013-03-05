@@ -1,11 +1,6 @@
 #!/bin/bash
 echo "#######  #######"
 
-infoHelp="Informacja o argumentach dla skryptu restorer.\n
-		Kolejność argumentów jest istotna.\n
-		2 argumenty - wrzucenie do bazy kolekcji nazwa_kolekcji z pliku nazwa_kolekcji.bson (restorer nazwa_bazy nazwa_kolekcji)\n
-		3 argumenty - wrzucenie do bazy kolekcji z konkretnego pliku (restorer nazwa_bazy nazwa_kolekcji nazwa_pliku)"
-
 infoHelp="Restorer - przywracanie kolekcji do lokalnego hosta przy użyciu plików bson. Użycie:\n
 		\bKolejność argumentów jest istotna.\n
 		*2 argumenty - przywrócenie do bazy, kolekcji z pliku o postaci nazwa_kolekcji.bson (np: restorer nazwa_bazy nazwa_kolekcji)\n\n
