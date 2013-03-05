@@ -1,5 +1,4 @@
 #!/bin/bash
-echo "#######  #######"
 
 infoHelp="Restorer - przywracanie kolekcji do lokalnego hosta przy użyciu plików bson. Użycie:\n
 		\bKolejność argumentów jest istotna.\n
