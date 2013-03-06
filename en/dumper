@@ -1,0 +1,38 @@
+#!/bin/bash
+
+infoHelp="Dumper - dumps database or collection. How to use:\n
+		\bOrder of arguments is important, but each next is optional.\n
+		*0 arguments - script will ask you for needed information to dump collection from specific database.\n\n
+		*1 argument - dumps everything from given host (ex: dumper localhost).\n
+		\tDB and collections will be saved in a dumper_result folder\n\n 
+		*2 arguments - dumps whole database with a given name (ex: dumper localhost db_name).\n
+		\tDB and collections will be saved in a folder with a name like dumped database name.\n\n
+		*3 arguments - dumps specific collection with a given name (ex: dumper localhost db_name collection_name).\n
+		\tCollection will be saved in a folder with name like database that collection cames from."
+		
+if [ "$#" -eq 0 ]
+	then
+	echo "No arguments found!"
+	echo "Type hostname (or host:port): "
+	read host
+	echo "Type in database name which contains collection you want to dump:"
+	read db
+	echo "Type in the name of that collection:"
+	read collection
+	mongodump --host $host --db $db --collection $collection --out '.'
+elif [ "$#" -eq 1 -a "$1" = "help" ]
+	then
+	echo -e $infoHelp
+elif [ "$#" -eq 1 -a "$1" != "help" ]
+	then
+	mkdir dumper_result > /dev/null 2>&1
+	mongodump --host $1 --out 'dumper_result/'
+elif [ "$#" -eq 2 ]
+	then
+	mongodump --host $1 --db $2 --out '.'
+elif [ "$#" -eq 3 ]
+	then
+	mongodump --host $1 --db $2 --collection $3 --out '.'
+else
+	echo -e $infoHelp
+fi

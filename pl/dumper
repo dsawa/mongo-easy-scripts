@@ -6,7 +6,7 @@ infoHelp="Dumper - zrzucanie bazy/kolekcji. Użycie:\n
 		*1 argument - zrzucenie wszystkiego z danego hosta (np: dumper localhost).\n
 		\tBazy i kolekcje zostaną zapisane w katalogu dumper_result\n\n 
 		*2 argumenty - zrzucenie całej bazy o podanej nazwie (np: dumper localhost nazwa_bazy).\n
-		\tZawartość bazy zostanie zapisana w katalogu o nazwie takiej jak zrzucana baza.\n
+		\tZawartość bazy zostanie zapisana w katalogu o nazwie takiej jak zrzucana baza.\n\n
 		*3 argumenty - zrzucenie jednej kolekcji o danej nazwie (dumper localhost nazwa_bazy nazwa_kolekcji).\n
 		\tKolekcja zostanie zapisana w katalogu o nazwie takiej jak baza z której pochodzi."
 		
