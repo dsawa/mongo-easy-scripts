@@ -1,0 +1,30 @@
+#!/bin/bash
+
+infoHelp="Importer - imports to a collection in localhost from json file. How to use:\n
+		\Order of arguments is important.\n
+		*0 arguments - script will ask you for all needed information to import to a collection in specific database.\n\n
+		*2 arguments - imports to a collection with name exactly like filename. (ex: importer db_name file_name)\n\n
+		*3 arguments - imports to a collection from specific json file (ex: importer db_name collection_name filename.json)\n"
+		
+if [ "$#" -eq 0 ]
+	then
+	echo "No arguments found!"
+	echo "Type in database name that you want to use:"
+	read db_name
+	echo "Type in a collection name:"
+	read collection
+	echo "Type in json filename (without .json extension)"
+	read fileName
+	mongoimport --db $db_name --collection $collection --type json --file $fileName.json --jsonArray
+elif [ "$#" -eq 1 -a "$1" = "help" ]
+	then
+	echo -e $infoHelp
+elif [ "$#" -eq 2 ]
+	then
+	mongoimport --db $1 --collection $2 --type json --file $2.json --jsonArray
+elif [ "$#" -eq 3 ]
+	then
+	mongoimport --db $1 --collection $2 --type json --file $3 --jsonArray
+else
+	echo -e $infoHelp
+fi
